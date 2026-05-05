@@ -108,9 +108,12 @@
       .hairline-strong { border: 1px solid rgba(255,255,255,0.10); }
       .hairline-top { border-top: 1px solid rgba(255,255,255,0.06); }
 
-      /* Subtle text fade-in via IntersectionObserver below */
-      .reveal { opacity: 0; transform: translateY(16px); transition: opacity 700ms cubic-bezier(.2,.7,.2,1), transform 700ms cubic-bezier(.2,.7,.2,1); }
-      .reveal.is-visible { opacity: 1; transform: translateY(0); }
+      /* Subtle reveal-on-scroll. Defaults to VISIBLE so the page is never
+         broken if JS is slow/disabled or in headless screenshots. The JS
+         opt-in adds an enter animation when supported. */
+      .reveal { transition: opacity 700ms cubic-bezier(.2,.7,.2,1), transform 700ms cubic-bezier(.2,.7,.2,1); }
+      .js-anim .reveal { opacity: 0; transform: translateY(14px); }
+      .js-anim .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
       /* Selection */
       ::selection { background: rgba(10,132,255,0.35); color: #fff; }
@@ -175,19 +178,19 @@
         </p>
 
         <div id="download" class="mt-12 flex flex-col items-center gap-4 reveal">
-          <div class="flex flex-wrap items-center justify-center gap-3">
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 w-full max-w-sm sm:max-w-none">
             <a href="https://github.com/DonteWong/nuro-optimizer-releases/releases/latest/download/Nuro-Optimizer.zip"
-               class="cta-primary inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-accent hover:bg-accent text-white font-medium shadow-cta">
+               class="cta-primary inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-accent hover:bg-accent text-white font-medium shadow-cta whitespace-nowrap">
               <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v12.5l-4-4-1.5 1.5 6.5 6.5 6.5-6.5L18 11.5l-4 4V3h-2zM5 20h14v2H5v-2z"/></svg>
               Download for macOS
             </a>
             <a href="https://github.com/DonteWong/nuro-optimizer-releases"
-               class="inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-fog-100 hairline-strong bg-white/[0.04] hover:bg-white/[0.07] transition-colors text-sm">
+               class="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full text-fog-100 hairline-strong bg-white/[0.04] hover:bg-white/[0.07] transition-colors text-sm whitespace-nowrap">
               View on GitHub
               <svg class="size-3.5 text-fog-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
             </a>
           </div>
-          <p class="text-fog-500 text-sm">v1.0.5 · 4.2 MB · macOS 13+ · Apple Silicon &amp; Intel · Free</p>
+          <p class="text-fog-500 text-xs sm:text-sm text-center px-4">v1.0.5 · 4.2&nbsp;MB · macOS&nbsp;13+ · Apple&nbsp;Silicon &amp; Intel · Free</p>
         </div>
 
         <!-- Hero icon -->
@@ -210,7 +213,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div class="reveal rounded-3xl hairline bg-ink-900/60 p-8 sm:p-10 shadow-card hover:bg-ink-800/60 transition-colors">
+          <div class="reveal rounded-3xl bg-ink-800/40 hairline-strong p-8 sm:p-10 shadow-card hover:bg-ink-800/70 hover:border-white/10 transition-colors">
             <div class="size-10 rounded-xl grid place-items-center bg-accent/10 text-accent mb-7">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="size-5"><path d="M3 12l2 2 4-4 4 4 4-4 4 4"/></svg>
             </div>
@@ -218,7 +221,7 @@
             <p class="text-fog-400 leading-relaxed">Sixteen analyzers run in parallel — battery, memory, disk SMART, startup items, thermal pressure — and surface what&rsquo;s actually wrong in seconds.</p>
           </div>
 
-          <div class="reveal rounded-3xl hairline bg-ink-900/60 p-8 sm:p-10 shadow-card hover:bg-ink-800/60 transition-colors">
+          <div class="reveal rounded-3xl bg-ink-800/40 hairline-strong p-8 sm:p-10 shadow-card hover:bg-ink-800/70 hover:border-white/10 transition-colors">
             <div class="size-10 rounded-xl grid place-items-center bg-accent/10 text-accent mb-7">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="size-5"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
             </div>
@@ -226,7 +229,7 @@
             <p class="text-fog-400 leading-relaxed">Cache cleaning sends files to the Trash, not <span class="font-mono text-fog-500">/dev/null</span>. Startup-item changes are transactional with auto-rollback if any step fails.</p>
           </div>
 
-          <div class="reveal rounded-3xl hairline bg-ink-900/60 p-8 sm:p-10 shadow-card hover:bg-ink-800/60 transition-colors">
+          <div class="reveal rounded-3xl bg-ink-800/40 hairline-strong p-8 sm:p-10 shadow-card hover:bg-ink-800/70 hover:border-white/10 transition-colors">
             <div class="size-10 rounded-xl grid place-items-center bg-accent/10 text-accent mb-7">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="size-5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V8a5 5 0 0 1 10 0v3"/></svg>
             </div>
@@ -254,41 +257,41 @@
         </div>
 
         <div class="lg:col-span-7 reveal">
-          <div class="rounded-3xl hairline bg-ink-900/60 p-7 sm:p-9 shadow-card">
-            <ol class="space-y-4">
-              <li class="flex items-start gap-5 p-4 rounded-2xl hairline bg-ink-850/50">
-                <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent/10 text-accent font-mono text-sm">01</span>
+          <div class="rounded-3xl bg-ink-800/40 hairline-strong p-5 sm:p-7 shadow-card">
+            <ol class="space-y-3">
+              <li class="flex items-start gap-5 p-5 rounded-2xl bg-ink-900/60 hairline">
+                <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent/15 text-accent font-mono text-sm">01</span>
                 <div>
                   <p class="text-fog-100 font-medium">Snapshot</p>
-                  <p class="text-fog-500 text-sm mt-1">Capture disk free, memory pressure, swap, top processes.</p>
+                  <p class="text-fog-400 text-sm mt-1">Capture disk free, memory pressure, swap, top processes.</p>
                 </div>
               </li>
-              <li class="flex items-start gap-5 p-4 rounded-2xl hairline bg-ink-850/50">
-                <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent/10 text-accent font-mono text-sm">02</span>
+              <li class="flex items-start gap-5 p-5 rounded-2xl bg-ink-900/60 hairline">
+                <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent/15 text-accent font-mono text-sm">02</span>
                 <div>
                   <p class="text-fog-100 font-medium">Clean caches</p>
-                  <p class="text-fog-500 text-sm mt-1">Reversible — files move to the Trash, not deletion.</p>
+                  <p class="text-fog-400 text-sm mt-1">Reversible — files move to the Trash, not deletion.</p>
                 </div>
               </li>
-              <li class="flex items-start gap-5 p-4 rounded-2xl hairline bg-ink-850/50">
-                <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent/10 text-accent font-mono text-sm">03</span>
+              <li class="flex items-start gap-5 p-5 rounded-2xl bg-ink-900/60 hairline">
+                <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent/15 text-accent font-mono text-sm">03</span>
                 <div>
                   <p class="text-fog-100 font-medium">Disable startup items</p>
-                  <p class="text-fog-500 text-sm mt-1">Transactional batch — rolls back automatically on any failure.</p>
+                  <p class="text-fog-400 text-sm mt-1">Transactional batch — rolls back automatically on any failure.</p>
                 </div>
               </li>
-              <li class="flex items-start gap-5 p-4 rounded-2xl hairline bg-ink-850/50">
-                <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent/10 text-accent font-mono text-sm">04</span>
+              <li class="flex items-start gap-5 p-5 rounded-2xl bg-ink-900/60 hairline">
+                <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent/15 text-accent font-mono text-sm">04</span>
                 <div>
                   <p class="text-fog-100 font-medium">Purge memory</p>
-                  <p class="text-fog-500 text-sm mt-1">Free inactive memory and reduce pressure on swap.</p>
+                  <p class="text-fog-400 text-sm mt-1">Free inactive memory and reduce pressure on swap.</p>
                 </div>
               </li>
-              <li class="flex items-start gap-5 p-4 rounded-2xl hairline bg-accent/[0.06] border-accent/20">
+              <li class="flex items-start gap-5 p-5 rounded-2xl bg-accent/[0.08] border border-accent/25">
                 <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent text-white font-mono text-sm">05</span>
                 <div>
                   <p class="text-fog-100 font-medium">Snapshot &amp; compare</p>
-                  <p class="text-fog-500 text-sm mt-1">Inline before/after — proof, not promises.</p>
+                  <p class="text-fog-400 text-sm mt-1">Inline before/after — proof, not promises.</p>
                 </div>
               </li>
             </ol>
@@ -307,53 +310,53 @@
           </h2>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 reveal">
-          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 reveal">
+          <div class="module rounded-2xl bg-ink-800/30 hairline p-5 transition-colors">
             <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg></div>
             <p class="text-fog-100 font-medium text-sm tracking-tight">Dashboard</p>
             <p class="text-fog-500 text-xs mt-1">Health score &amp; key metrics</p>
           </div>
-          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+          <div class="module rounded-2xl bg-ink-800/30 hairline p-5 transition-colors">
             <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
             <p class="text-fog-100 font-medium text-sm tracking-tight">Full Diagnostic</p>
             <p class="text-fog-500 text-xs mt-1">16 analyzers, parallelized</p>
           </div>
-          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+          <div class="module rounded-2xl bg-ink-800/30 hairline p-5 transition-colors">
             <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></div>
             <p class="text-fog-100 font-medium text-sm tracking-tight">Cache Cleaner</p>
             <p class="text-fog-500 text-xs mt-1">Reversible — sends to Trash</p>
           </div>
-          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+          <div class="module rounded-2xl bg-ink-800/30 hairline p-5 transition-colors">
             <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></div>
             <p class="text-fog-100 font-medium text-sm tracking-tight">Large Files</p>
             <p class="text-fog-500 text-xs mt-1">Find &amp; review by threshold</p>
           </div>
-          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+          <div class="module rounded-2xl bg-ink-800/30 hairline p-5 transition-colors">
             <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
             <p class="text-fog-100 font-medium text-sm tracking-tight">Startup Items</p>
             <p class="text-fog-500 text-xs mt-1">Transactional, with rollback</p>
           </div>
-          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+          <div class="module rounded-2xl bg-ink-800/30 hairline p-5 transition-colors">
             <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg></div>
             <p class="text-fog-100 font-medium text-sm tracking-tight">Battery</p>
             <p class="text-fog-500 text-xs mt-1">Cycles, condition, throttling</p>
           </div>
-          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+          <div class="module rounded-2xl bg-ink-800/30 hairline p-5 transition-colors">
             <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10v4M11 10v4M15 10v4"/></svg></div>
             <p class="text-fog-100 font-medium text-sm tracking-tight">Memory</p>
             <p class="text-fog-500 text-xs mt-1">Pressure, swap, top consumers</p>
           </div>
-          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+          <div class="module rounded-2xl bg-ink-800/30 hairline p-5 transition-colors">
             <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div>
             <p class="text-fog-100 font-medium text-sm tracking-tight">SSD Health</p>
             <p class="text-fog-500 text-xs mt-1">SMART, TRIM, FileVault</p>
           </div>
-          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+          <div class="module rounded-2xl bg-ink-800/30 hairline p-5 transition-colors">
             <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
             <p class="text-fog-100 font-medium text-sm tracking-tight">One-Click Optimize</p>
             <p class="text-fog-500 text-xs mt-1">Five-step with comparison</p>
           </div>
-          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+          <div class="module rounded-2xl bg-ink-800/30 hairline p-5 transition-colors">
             <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21h18M5 21V10M11 21V6M17 21v-7"/></svg></div>
             <p class="text-fog-100 font-medium text-sm tracking-tight">Benchmarks</p>
             <p class="text-fog-500 text-xs mt-1">Historical comparisons</p>
@@ -390,22 +393,22 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 reveal">
-          <div class="rounded-3xl hairline bg-ink-900/60 p-7 shadow-card">
+          <div class="rounded-3xl bg-ink-800/40 hairline-strong p-7 shadow-card">
             <p class="font-mono text-xs text-fog-500 mb-4">STEP 01</p>
             <p class="font-display text-lg text-fog-100 font-medium tracking-tight mb-2">Download</p>
             <p class="text-fog-400 text-sm leading-relaxed">Click the button above. It&rsquo;s a 4.2&nbsp;MB <span class="font-mono text-fog-300">.zip</span>.</p>
           </div>
-          <div class="rounded-3xl hairline bg-ink-900/60 p-7 shadow-card">
+          <div class="rounded-3xl bg-ink-800/40 hairline-strong p-7 shadow-card">
             <p class="font-mono text-xs text-fog-500 mb-4">STEP 02</p>
             <p class="font-display text-lg text-fog-100 font-medium tracking-tight mb-2">Unzip</p>
             <p class="text-fog-400 text-sm leading-relaxed">Double-click to extract the app bundle.</p>
           </div>
-          <div class="rounded-3xl hairline bg-ink-900/60 p-7 shadow-card">
+          <div class="rounded-3xl bg-ink-800/40 hairline-strong p-7 shadow-card">
             <p class="font-mono text-xs text-fog-500 mb-4">STEP 03</p>
             <p class="font-display text-lg text-fog-100 font-medium tracking-tight mb-2">Drag to <span class="font-mono">/Applications</span></p>
             <p class="text-fog-400 text-sm leading-relaxed">Permissions track better when the app lives there.</p>
           </div>
-          <div class="rounded-3xl hairline bg-ink-900/60 p-7 shadow-card">
+          <div class="rounded-3xl bg-ink-800/40 hairline-strong p-7 shadow-card">
             <p class="font-mono text-xs text-fog-500 mb-4">STEP 04</p>
             <p class="font-display text-lg text-fog-100 font-medium tracking-tight mb-2">Grant Full Disk Access</p>
             <p class="text-fog-400 text-sm leading-relaxed">Walk through the prompt on first launch. Required so scans don&rsquo;t silently miss problems.</p>
@@ -463,13 +466,18 @@
         onScroll();
       })();
 
-      // Reveal-on-scroll for elements marked .reveal
+      // Reveal-on-scroll. Only opt into the hidden-then-fade behavior
+      // if the page renders quickly enough that we can guarantee animations
+      // run. Otherwise the page stays visible by default (more robust).
       (function () {
+        if (!('IntersectionObserver' in window)) return;
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        // Tag <html> so the CSS rule kicks in. Anything not yet seen by IO
+        // becomes opacity:0; once seen, .is-visible flips it to opacity:1.
+        document.documentElement.classList.add('js-anim');
+
         const els = document.querySelectorAll('.reveal');
-        if (!('IntersectionObserver' in window)) {
-          els.forEach(el => el.classList.add('is-visible'));
-          return;
-        }
         const io = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -477,8 +485,14 @@
               io.unobserve(entry.target);
             }
           });
-        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
         els.forEach(el => io.observe(el));
+
+        // Belt-and-suspenders: after 2s, force everything visible regardless,
+        // so anything below the fold during a slow load still appears.
+        setTimeout(() => {
+          document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => el.classList.add('is-visible'));
+        }, 2000);
       })();
     </script>
 </body>
