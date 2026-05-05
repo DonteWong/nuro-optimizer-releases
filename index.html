@@ -1,162 +1,485 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuro Optimizer — Diagnose and fix your Mac in seconds</title>
-    <meta name="description" content="A free, offline macOS optimizer from Sentium Nuro Labs. Find the real reason your Mac is slow — caches, startup items, memory pressure, disk health — and fix it in one click.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Nuro Optimizer — Diagnose and fix your Mac in seconds">
-    <meta property="og:description" content="A free, offline macOS optimizer. Find the real reason your Mac is slow and fix it in one click.">
+    <title>Nuro Optimizer — A faster Mac, in one tap.</title>
+    <meta name="description" content="A free, offline macOS optimizer. 16 analyzers find what's actually slowing your Mac down. Reversible fixes. No telemetry. No accounts. From Sentium Nuro Labs.">
+
+    <!-- Open Graph / iMessage / Slack / Twitter unfurl -->
+    <meta property="og:title" content="Nuro Optimizer — A faster Mac, in one tap.">
+    <meta property="og:description" content="A free, offline macOS optimizer. 16 analyzers find what's actually slowing your Mac down. Reversible fixes. No telemetry.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://optimizer.getsentium.com">
+    <meta property="og:image" content="https://optimizer.getsentium.com/icon.png">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
+    <meta property="og:site_name" content="Sentium Nuro Labs">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nuro Optimizer — A faster Mac, in one tap.">
+    <meta name="twitter:description" content="A free, offline macOS optimizer. 16 analyzers find what's actually slowing your Mac down.">
+    <meta name="twitter:image" content="https://optimizer.getsentium.com/icon.png">
+
+    <link rel="icon" type="image/png" href="./icon.png">
+    <link rel="apple-touch-icon" href="./icon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              ink: {
+                950: '#000000',
+                900: '#06070a',
+                850: '#0a0c11',
+                800: '#10131a',
+                700: '#1a1e26',
+                600: '#2a2f3a',
+              },
+              accent: {
+                DEFAULT: '#0A84FF',
+                soft: '#5DADFF',
+                glow: 'rgba(10,132,255,0.22)',
+              },
+              fog: {
+                100: '#f5f6f8',
+                400: '#a8adb8',
+                500: '#7c818d',
+                600: '#5e636e',
+              }
+            },
+            fontFamily: {
+              display: ['ui-sans-serif', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'Segoe UI', 'system-ui', 'sans-serif'],
+              text: ['ui-sans-serif', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'Segoe UI', 'system-ui', 'sans-serif'],
+              mono: ['ui-monospace', 'SFMono-Regular', 'JetBrains Mono', 'Menlo', 'monospace'],
+            },
+            fontSize: {
+              'display-2xl': ['clamp(3rem, 8vw, 7rem)', { lineHeight: '1.02', letterSpacing: '-0.045em' }],
+              'display-xl':  ['clamp(2.4rem, 6vw, 5rem)', { lineHeight: '1.05', letterSpacing: '-0.035em' }],
+              'display-lg':  ['clamp(2rem, 4.5vw, 3.5rem)',  { lineHeight: '1.08', letterSpacing: '-0.03em' }],
+              'eyebrow':     ['0.78rem', { lineHeight: '1', letterSpacing: '0.18em' }],
+            },
+            maxWidth: {
+              'prose-tight': '34rem',
+              'page': '76rem',
+            },
+            boxShadow: {
+              'cta': '0 1px 0 rgba(255,255,255,0.08) inset, 0 8px 24px rgba(10,132,255,0.30)',
+              'glow': '0 0 80px 12px rgba(10,132,255,0.18), 0 0 160px 30px rgba(10,132,255,0.10)',
+              'card': '0 1px 0 rgba(255,255,255,0.04) inset, 0 24px 60px -24px rgba(0,0,0,0.6)',
+            },
+            keyframes: {
+              floaty: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-6px)' } },
+              fadeUp: { '0%': { opacity: '0', transform: 'translateY(12px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+            },
+            animation: {
+              floaty: 'floaty 6s ease-in-out infinite',
+              fadeUp: 'fadeUp 0.7s ease-out both',
+            }
+          }
+        }
+      };
+    </script>
 
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg: #0d0d0d;
-            --surface: #161616;
-            --border: #2a2a2a;
-            --text: #e8e8e8;
-            --text-muted: #8a8a8a;
-            --accent: #4a8df0;
-            --accent-glow: rgba(74, 141, 240, 0.18);
-        }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+      html, body { background: #000; }
+      body { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; max-width: 1100px; margin: 0 auto; }
-        .logo { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; }
-        .logo span { color: var(--text-muted); font-weight: 400; }
-        nav a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; margin-left: 1.5rem; }
-        nav a:hover { color: var(--text); }
+      /* Hero gradient backdrop */
+      .hero-bg {
+        background:
+          radial-gradient(1200px 600px at 50% -10%, rgba(10,132,255,0.18), transparent 60%),
+          radial-gradient(900px 500px at 80% 30%, rgba(93,173,255,0.10), transparent 60%),
+          linear-gradient(180deg, #000 0%, #06070a 100%);
+      }
+      .section-bg {
+        background: linear-gradient(180deg, #06070a 0%, #0a0c11 100%);
+      }
+      .section-bg-alt {
+        background: linear-gradient(180deg, #0a0c11 0%, #06070a 100%);
+      }
 
-        .hero { max-width: 760px; margin: 6rem auto 4rem; padding: 0 2rem; text-align: center; }
-        .badge { display: inline-block; font-size: 0.75rem; font-weight: 500; color: var(--accent); background: var(--accent-glow); padding: 0.3rem 0.75rem; border-radius: 999px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.5rem; }
-        .hero h1 { font-size: 3rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1.5rem; }
-        .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 560px; margin: 0 auto 2.5rem; line-height: 1.7; }
-        .cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; align-items: center; }
-        .cta { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: #fff; padding: 0.9rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: opacity 0.2s; box-shadow: 0 0 0 1px var(--accent-glow), 0 8px 30px var(--accent-glow); }
-        .cta:hover { opacity: 0.9; }
-        .cta-meta { color: var(--text-muted); font-size: 0.85rem; }
+      /* Soft hairline border used by Apple-style cards */
+      .hairline { border: 1px solid rgba(255,255,255,0.06); }
+      .hairline-strong { border: 1px solid rgba(255,255,255,0.10); }
+      .hairline-top { border-top: 1px solid rgba(255,255,255,0.06); }
 
-        .features { max-width: 1000px; margin: 0 auto 6rem; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
-        .feature { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; }
-        .feature h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
-        .feature p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+      /* Subtle text fade-in via IntersectionObserver below */
+      .reveal { opacity: 0; transform: translateY(16px); transition: opacity 700ms cubic-bezier(.2,.7,.2,1), transform 700ms cubic-bezier(.2,.7,.2,1); }
+      .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
-        .section { max-width: 760px; margin: 0 auto 5rem; padding: 0 2rem; }
-        .section h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; letter-spacing: -0.01em; }
-        .section ul { list-style: none; }
-        .section li { color: var(--text-muted); padding: 0.6rem 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
-        .section li:last-child { border-bottom: none; }
-        .section li strong { color: var(--text); font-weight: 500; }
+      /* Selection */
+      ::selection { background: rgba(10,132,255,0.35); color: #fff; }
 
-        .install { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem 1.75rem; }
-        .install ol { list-style: decimal inside; color: var(--text-muted); }
-        .install li { padding: 0.4rem 0; border: none; display: list-item; }
-        .install code { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 0.1rem 0.4rem; font-size: 0.85em; color: var(--text); font-family: ui-monospace, SFMono-Regular, monospace; }
+      /* Sticky nav backdrop blur — only after scroll */
+      .nav-blur { backdrop-filter: saturate(180%) blur(18px); -webkit-backdrop-filter: saturate(180%) blur(18px); background: rgba(0,0,0,0.65); border-bottom: 1px solid rgba(255,255,255,0.06); }
 
-        footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; max-width: 1100px; margin: 0 auto; }
-        footer a { color: var(--text-muted); text-decoration: none; margin: 0 0.4rem; }
-        footer a:hover { color: var(--text); }
+      /* Polished focus rings (keyboard only) */
+      :focus-visible { outline: 2px solid #0A84FF; outline-offset: 3px; border-radius: 6px; }
 
-        @media (max-width: 600px) {
-            .hero { margin-top: 3rem; }
-            .hero h1 { font-size: 2rem; }
-        }
+      /* CTA shimmer on hover */
+      .cta-primary { transition: transform 220ms cubic-bezier(.2,.7,.2,1), box-shadow 220ms; }
+      .cta-primary:hover { transform: translateY(-1px); box-shadow: 0 1px 0 rgba(255,255,255,0.10) inset, 0 12px 30px rgba(10,132,255,0.45); }
+      .cta-primary:active { transform: translateY(0); }
+
+      /* Module pill hover */
+      .module:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.10); }
+
+      /* Hero icon glow & idle float */
+      .icon-wrap::before {
+        content: '';
+        position: absolute; inset: -22%;
+        background: radial-gradient(closest-side, rgba(10,132,255,0.45), transparent 70%);
+        filter: blur(32px);
+        z-index: 0;
+      }
     </style>
 </head>
-<body>
-    <nav>
-        <div class="logo">Sentium Nuro Labs <span>· Optimizer</span></div>
-        <div>
-            <a href="/">Sentium</a>
-            <a href="/privacy">Privacy</a>
-        </div>
-    </nav>
+<body class="bg-ink-950 text-fog-100 selection:bg-accent/30">
 
-    <section class="hero">
-        <div class="badge">Free · macOS 13+ · Universal</div>
-        <h1>Find the real reason your Mac is slow.</h1>
-        <p>Nuro Optimizer scans your Mac for caches, startup items, memory pressure, and disk health — then fixes them in one click. Fully offline. No accounts. No telemetry.</p>
-        <div class="cta-row">
-            <a href="https://github.com/DonteWong/nuro-optimizer-releases/releases/latest/download/Nuro-Optimizer.zip" class="cta" id="downloadCta">Download for macOS</a>
-            <span class="cta-meta">v1.0.5 · 4.2 MB · Apple Silicon &amp; Intel</span>
+    <!-- ─────────────────────────────────────────────  NAV  ───────────────────────────────────────────── -->
+    <header id="topnav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+      <nav class="mx-auto max-w-page px-6 sm:px-10 py-4 flex items-center justify-between text-sm">
+        <a href="#" class="flex items-center gap-2.5 group">
+          <span class="font-semibold tracking-tight text-fog-100">Sentium Nuro Labs</span>
+          <span class="text-fog-500">·</span>
+          <span class="text-fog-400 group-hover:text-fog-100 transition-colors">Optimizer</span>
+        </a>
+        <div class="flex items-center gap-7 text-fog-400">
+          <a href="https://getsentium.com" class="hover:text-fog-100 transition-colors hidden sm:inline">Sentium</a>
+          <a href="https://getsentium.com/privacy" class="hover:text-fog-100 transition-colors hidden sm:inline">Privacy</a>
+          <a href="https://github.com/DonteWong/nuro-optimizer-releases" class="hover:text-fog-100 transition-colors hidden sm:inline">GitHub</a>
+          <a href="#download" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/15 text-fog-100 transition-colors hairline-strong">Download</a>
         </div>
+      </nav>
+    </header>
+
+    <!-- ─────────────────────────────────────────────  HERO  ───────────────────────────────────────────── -->
+    <section class="hero-bg pt-40 sm:pt-44 pb-32 sm:pb-40 overflow-hidden">
+      <div class="mx-auto max-w-page px-6 sm:px-10 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full hairline-strong bg-white/[0.04] text-fog-400 text-eyebrow uppercase mb-10 reveal">
+          <span class="size-1.5 rounded-full bg-accent shadow-[0_0_12px_rgba(10,132,255,0.8)]"></span>
+          Free · macOS 13+ · Universal
+        </div>
+
+        <h1 class="font-display font-semibold text-display-2xl text-fog-100 max-w-4xl mx-auto reveal">
+          A faster Mac,<br class="hidden sm:inline"> in one tap.
+        </h1>
+
+        <p class="mt-7 text-lg sm:text-xl text-fog-400 max-w-prose-tight mx-auto leading-relaxed reveal">
+          Sixteen analyzers find what&rsquo;s actually slowing your Mac down. Caches, startup items, memory pressure, disk health. Then fix it &mdash; reversibly &mdash; in one click.
+        </p>
+
+        <div id="download" class="mt-12 flex flex-col items-center gap-4 reveal">
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <a href="https://github.com/DonteWong/nuro-optimizer-releases/releases/latest/download/Nuro-Optimizer.zip"
+               class="cta-primary inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-accent hover:bg-accent text-white font-medium shadow-cta">
+              <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v12.5l-4-4-1.5 1.5 6.5 6.5 6.5-6.5L18 11.5l-4 4V3h-2zM5 20h14v2H5v-2z"/></svg>
+              Download for macOS
+            </a>
+            <a href="https://github.com/DonteWong/nuro-optimizer-releases"
+               class="inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-fog-100 hairline-strong bg-white/[0.04] hover:bg-white/[0.07] transition-colors text-sm">
+              View on GitHub
+              <svg class="size-3.5 text-fog-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </a>
+          </div>
+          <p class="text-fog-500 text-sm">v1.0.5 · 4.2 MB · macOS 13+ · Apple Silicon &amp; Intel · Free</p>
+        </div>
+
+        <!-- Hero icon -->
+        <div class="mt-20 sm:mt-28 flex justify-center reveal">
+          <div class="relative icon-wrap animate-floaty">
+            <img src="./icon.png" alt="Nuro Optimizer app icon" class="relative z-10 size-44 sm:size-56 lg:size-64 rounded-[28%] shadow-glow" width="256" height="256">
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="features">
-        <div class="feature">
-            <h3>One-tap diagnosis</h3>
-            <p>16 analyzers run in parallel — battery, memory, disk health, startup items, thermal pressure — and surface the issues that matter.</p>
+    <!-- ─────────────────────────────────────────────  THREE PILLARS  ───────────────────────────────────────────── -->
+    <section class="section-bg py-32 sm:py-40">
+      <div class="mx-auto max-w-page px-6 sm:px-10">
+        <div class="max-w-2xl mb-20 reveal">
+          <p class="text-eyebrow uppercase text-accent-soft mb-5">Why Nuro</p>
+          <h2 class="font-display font-semibold text-display-lg text-fog-100">
+            Built on three principles.
+          </h2>
         </div>
-        <div class="feature">
-            <h3>Reversible fixes</h3>
-            <p>Cache cleaning sends files to the Trash, not /dev/null. Startup-item changes are transactional — every batch can be rolled back.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="reveal rounded-3xl hairline bg-ink-900/60 p-8 sm:p-10 shadow-card hover:bg-ink-800/60 transition-colors">
+            <div class="size-10 rounded-xl grid place-items-center bg-accent/10 text-accent mb-7">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="size-5"><path d="M3 12l2 2 4-4 4 4 4-4 4 4"/></svg>
+            </div>
+            <h3 class="text-xl font-semibold text-fog-100 mb-3 tracking-tight">One tap to diagnose.</h3>
+            <p class="text-fog-400 leading-relaxed">Sixteen analyzers run in parallel — battery, memory, disk SMART, startup items, thermal pressure — and surface what&rsquo;s actually wrong in seconds.</p>
+          </div>
+
+          <div class="reveal rounded-3xl hairline bg-ink-900/60 p-8 sm:p-10 shadow-card hover:bg-ink-800/60 transition-colors">
+            <div class="size-10 rounded-xl grid place-items-center bg-accent/10 text-accent mb-7">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="size-5"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></svg>
+            </div>
+            <h3 class="text-xl font-semibold text-fog-100 mb-3 tracking-tight">Every fix, reversible.</h3>
+            <p class="text-fog-400 leading-relaxed">Cache cleaning sends files to the Trash, not <span class="font-mono text-fog-500">/dev/null</span>. Startup-item changes are transactional with auto-rollback if any step fails.</p>
+          </div>
+
+          <div class="reveal rounded-3xl hairline bg-ink-900/60 p-8 sm:p-10 shadow-card hover:bg-ink-800/60 transition-colors">
+            <div class="size-10 rounded-xl grid place-items-center bg-accent/10 text-accent mb-7">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="size-5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V8a5 5 0 0 1 10 0v3"/></svg>
+            </div>
+            <h3 class="text-xl font-semibold text-fog-100 mb-3 tracking-tight">100% offline.</h3>
+            <p class="text-fog-400 leading-relaxed">Zero network calls. No telemetry, no analytics, no crash reporting to third parties. What happens on your Mac stays on your Mac.</p>
+          </div>
         </div>
-        <div class="feature">
-            <h3>100% offline</h3>
-            <p>Zero network calls. No telemetry, no analytics, no crash reporting to third parties. What happens on your Mac stays on your Mac.</p>
-        </div>
+      </div>
     </section>
 
-    <section class="section">
-        <h2>How to install</h2>
-        <div class="install">
-            <ol>
-                <li>Download the zip and unzip it.</li>
-                <li>Drag <strong>Nuro Optimizer.app</strong> to your <code>/Applications</code> folder.</li>
-                <li>Launch it. On first run, grant <strong>Full Disk Access</strong> when prompted — this lets the app see system caches and launch items it would otherwise miss.</li>
-                <li>Click <strong>Run a Full Diagnostic</strong> on the dashboard.</li>
+    <!-- ─────────────────────────────────────────────  DEEP DIVE: ONE-CLICK OPTIMIZE  ───────────────────────────────────────────── -->
+    <section class="section-bg-alt py-32 sm:py-44">
+      <div class="mx-auto max-w-page px-6 sm:px-10 grid lg:grid-cols-12 gap-16 lg:gap-20 items-center">
+        <div class="lg:col-span-5 reveal">
+          <p class="text-eyebrow uppercase text-accent-soft mb-5">One-Click Optimize</p>
+          <h2 class="font-display font-semibold text-display-lg text-fog-100 mb-7">
+            Five steps. One button.
+          </h2>
+          <p class="text-fog-400 text-lg leading-relaxed mb-7">
+            Snapshot your system. Clean caches. Disable startup items. Purge memory. Snapshot again. See the before-and-after side by side, no guesswork about what changed.
+          </p>
+          <p class="text-fog-500 leading-relaxed">
+            Skip any step. Undo the whole thing. Or run it on a schedule. The optimizer is built for the way you actually use a Mac.
+          </p>
+        </div>
+
+        <div class="lg:col-span-7 reveal">
+          <div class="rounded-3xl hairline bg-ink-900/60 p-7 sm:p-9 shadow-card">
+            <ol class="space-y-4">
+              <li class="flex items-start gap-5 p-4 rounded-2xl hairline bg-ink-850/50">
+                <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent/10 text-accent font-mono text-sm">01</span>
+                <div>
+                  <p class="text-fog-100 font-medium">Snapshot</p>
+                  <p class="text-fog-500 text-sm mt-1">Capture disk free, memory pressure, swap, top processes.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-5 p-4 rounded-2xl hairline bg-ink-850/50">
+                <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent/10 text-accent font-mono text-sm">02</span>
+                <div>
+                  <p class="text-fog-100 font-medium">Clean caches</p>
+                  <p class="text-fog-500 text-sm mt-1">Reversible — files move to the Trash, not deletion.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-5 p-4 rounded-2xl hairline bg-ink-850/50">
+                <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent/10 text-accent font-mono text-sm">03</span>
+                <div>
+                  <p class="text-fog-100 font-medium">Disable startup items</p>
+                  <p class="text-fog-500 text-sm mt-1">Transactional batch — rolls back automatically on any failure.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-5 p-4 rounded-2xl hairline bg-ink-850/50">
+                <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent/10 text-accent font-mono text-sm">04</span>
+                <div>
+                  <p class="text-fog-100 font-medium">Purge memory</p>
+                  <p class="text-fog-500 text-sm mt-1">Free inactive memory and reduce pressure on swap.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-5 p-4 rounded-2xl hairline bg-accent/[0.06] border-accent/20">
+                <span class="shrink-0 size-9 rounded-full grid place-items-center bg-accent text-white font-mono text-sm">05</span>
+                <div>
+                  <p class="text-fog-100 font-medium">Snapshot &amp; compare</p>
+                  <p class="text-fog-500 text-sm mt-1">Inline before/after — proof, not promises.</p>
+                </div>
+              </li>
             </ol>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section class="section">
-        <h2>What it does</h2>
-        <ul>
-            <li><strong>Dashboard</strong><span>Health score, key metrics, quick actions</span></li>
-            <li><strong>Full Diagnostic</strong><span>16 analyzers, results in seconds</span></li>
-            <li><strong>Cache Cleaner</strong><span>Reversible — files go to Trash</span></li>
-            <li><strong>Large Files</strong><span>Find and review files over a threshold</span></li>
-            <li><strong>Startup Items</strong><span>Recommendations + one-click toggles</span></li>
-            <li><strong>Battery Health</strong><span>Cycles, condition, thermal throttling</span></li>
-            <li><strong>Memory Analysis</strong><span>Pressure, swap, top consumers</span></li>
-            <li><strong>SSD Health</strong><span>SMART, TRIM, FileVault, APFS volumes</span></li>
-            <li><strong>One-Click Optimize</strong><span>Five steps with before/after comparison</span></li>
-        </ul>
+    <!-- ─────────────────────────────────────────────  MODULES  ───────────────────────────────────────────── -->
+    <section class="section-bg py-32 sm:py-40">
+      <div class="mx-auto max-w-page px-6 sm:px-10">
+        <div class="max-w-2xl mb-16 reveal">
+          <p class="text-eyebrow uppercase text-accent-soft mb-5">Inside the app</p>
+          <h2 class="font-display font-semibold text-display-lg text-fog-100">
+            Ten modules. One coherent app.
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 reveal">
+          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+            <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg></div>
+            <p class="text-fog-100 font-medium text-sm tracking-tight">Dashboard</p>
+            <p class="text-fog-500 text-xs mt-1">Health score &amp; key metrics</p>
+          </div>
+          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+            <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+            <p class="text-fog-100 font-medium text-sm tracking-tight">Full Diagnostic</p>
+            <p class="text-fog-500 text-xs mt-1">16 analyzers, parallelized</p>
+          </div>
+          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+            <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg></div>
+            <p class="text-fog-100 font-medium text-sm tracking-tight">Cache Cleaner</p>
+            <p class="text-fog-500 text-xs mt-1">Reversible — sends to Trash</p>
+          </div>
+          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+            <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></div>
+            <p class="text-fog-100 font-medium text-sm tracking-tight">Large Files</p>
+            <p class="text-fog-500 text-xs mt-1">Find &amp; review by threshold</p>
+          </div>
+          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+            <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+            <p class="text-fog-100 font-medium text-sm tracking-tight">Startup Items</p>
+            <p class="text-fog-500 text-xs mt-1">Transactional, with rollback</p>
+          </div>
+          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+            <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg></div>
+            <p class="text-fog-100 font-medium text-sm tracking-tight">Battery</p>
+            <p class="text-fog-500 text-xs mt-1">Cycles, condition, throttling</p>
+          </div>
+          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+            <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10v4M11 10v4M15 10v4"/></svg></div>
+            <p class="text-fog-100 font-medium text-sm tracking-tight">Memory</p>
+            <p class="text-fog-500 text-xs mt-1">Pressure, swap, top consumers</p>
+          </div>
+          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+            <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div>
+            <p class="text-fog-100 font-medium text-sm tracking-tight">SSD Health</p>
+            <p class="text-fog-500 text-xs mt-1">SMART, TRIM, FileVault</p>
+          </div>
+          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+            <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+            <p class="text-fog-100 font-medium text-sm tracking-tight">One-Click Optimize</p>
+            <p class="text-fog-500 text-xs mt-1">Five-step with comparison</p>
+          </div>
+          <div class="module rounded-2xl hairline bg-ink-900/40 p-5 transition-colors">
+            <div class="text-accent mb-3"><svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21h18M5 21V10M11 21V6M17 21v-7"/></svg></div>
+            <p class="text-fog-100 font-medium text-sm tracking-tight">Benchmarks</p>
+            <p class="text-fog-500 text-xs mt-1">Historical comparisons</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="section">
-        <h2>System requirements</h2>
-        <ul>
-            <li><strong>macOS</strong><span>13 Ventura or later</span></li>
-            <li><strong>Architecture</strong><span>Apple Silicon (M1/M2/M3/M4) or Intel</span></li>
-            <li><strong>Disk space</strong><span>~10 MB</span></li>
-            <li><strong>Permissions</strong><span>Full Disk Access (recommended)</span></li>
-        </ul>
+    <!-- ─────────────────────────────────────────────  PRIVACY STATEMENT  ───────────────────────────────────────────── -->
+    <section class="section-bg-alt py-32 sm:py-40">
+      <div class="mx-auto max-w-3xl px-6 sm:px-10 text-center reveal">
+        <p class="text-eyebrow uppercase text-accent-soft mb-5">Privacy by default</p>
+        <h2 class="font-display font-semibold text-display-lg text-fog-100 mb-7">
+          The app you trust shouldn&rsquo;t need to know who you are.
+        </h2>
+        <p class="text-fog-400 text-lg leading-relaxed">
+          Nuro Optimizer makes zero network calls &mdash; not for analytics, not for crash reporting, not for license checks. There are no accounts, no sign-ins, and no opt-outs to bury in a settings menu. Everything you do happens on your Mac, and stays there.
+        </p>
+        <div class="mt-12 inline-flex items-center gap-3 px-5 py-2.5 rounded-full hairline-strong bg-white/[0.04] text-sm text-fog-400">
+          <span class="size-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(74,222,128,0.7)]"></span>
+          Notarized by Apple · Hardened Runtime · Developer ID
+        </div>
+      </div>
     </section>
 
-    <footer>
-        © 2026 Sentium Nuro Labs · Created by Donte Wong
-        · <a href="/">Sentium</a>
-        · <a href="/privacy">Privacy</a>
-        · <a href="mailto:hello@getsentium.com">Contact</a>
+    <!-- ─────────────────────────────────────────────  INSTALL  ───────────────────────────────────────────── -->
+    <section class="section-bg py-32 sm:py-40">
+      <div class="mx-auto max-w-page px-6 sm:px-10">
+        <div class="max-w-2xl mb-16 reveal">
+          <p class="text-eyebrow uppercase text-accent-soft mb-5">Install</p>
+          <h2 class="font-display font-semibold text-display-lg text-fog-100">
+            Up and running in under a minute.
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 reveal">
+          <div class="rounded-3xl hairline bg-ink-900/60 p-7 shadow-card">
+            <p class="font-mono text-xs text-fog-500 mb-4">STEP 01</p>
+            <p class="font-display text-lg text-fog-100 font-medium tracking-tight mb-2">Download</p>
+            <p class="text-fog-400 text-sm leading-relaxed">Click the button above. It&rsquo;s a 4.2&nbsp;MB <span class="font-mono text-fog-300">.zip</span>.</p>
+          </div>
+          <div class="rounded-3xl hairline bg-ink-900/60 p-7 shadow-card">
+            <p class="font-mono text-xs text-fog-500 mb-4">STEP 02</p>
+            <p class="font-display text-lg text-fog-100 font-medium tracking-tight mb-2">Unzip</p>
+            <p class="text-fog-400 text-sm leading-relaxed">Double-click to extract the app bundle.</p>
+          </div>
+          <div class="rounded-3xl hairline bg-ink-900/60 p-7 shadow-card">
+            <p class="font-mono text-xs text-fog-500 mb-4">STEP 03</p>
+            <p class="font-display text-lg text-fog-100 font-medium tracking-tight mb-2">Drag to <span class="font-mono">/Applications</span></p>
+            <p class="text-fog-400 text-sm leading-relaxed">Permissions track better when the app lives there.</p>
+          </div>
+          <div class="rounded-3xl hairline bg-ink-900/60 p-7 shadow-card">
+            <p class="font-mono text-xs text-fog-500 mb-4">STEP 04</p>
+            <p class="font-display text-lg text-fog-100 font-medium tracking-tight mb-2">Grant Full Disk Access</p>
+            <p class="text-fog-400 text-sm leading-relaxed">Walk through the prompt on first launch. Required so scans don&rsquo;t silently miss problems.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────  FINAL CTA  ───────────────────────────────────────────── -->
+    <section class="hero-bg py-32 sm:py-40">
+      <div class="mx-auto max-w-3xl px-6 sm:px-10 text-center reveal">
+        <h2 class="font-display font-semibold text-display-xl text-fog-100 mb-7">
+          See what your Mac is hiding.
+        </h2>
+        <p class="text-fog-400 text-lg max-w-prose-tight mx-auto mb-12 leading-relaxed">
+          Free. Offline. Universal. Two minutes to a faster Mac.
+        </p>
+        <div class="flex flex-col items-center gap-4">
+          <a href="https://github.com/DonteWong/nuro-optimizer-releases/releases/latest/download/Nuro-Optimizer.zip"
+             class="cta-primary inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-accent text-white font-medium shadow-cta">
+            <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3v12.5l-4-4-1.5 1.5 6.5 6.5 6.5-6.5L18 11.5l-4 4V3h-2zM5 20h14v2H5v-2z"/></svg>
+            Download for macOS
+          </a>
+          <p class="text-fog-500 text-sm">v1.0.5 · 4.2 MB · macOS 13+ · Apple Silicon &amp; Intel</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────────────  FOOTER  ───────────────────────────────────────────── -->
+    <footer class="hairline-top">
+      <div class="mx-auto max-w-page px-6 sm:px-10 py-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 text-sm">
+        <div class="flex items-center gap-3 text-fog-500">
+          <span>© 2026 Sentium Nuro Labs</span>
+          <span class="text-fog-600">·</span>
+          <span>Created by Donte Wong</span>
+        </div>
+        <div class="flex items-center gap-7 text-fog-500">
+          <a href="https://getsentium.com" class="hover:text-fog-100 transition-colors">Sentium</a>
+          <a href="https://getsentium.com/privacy" class="hover:text-fog-100 transition-colors">Privacy</a>
+          <a href="https://github.com/DonteWong/nuro-optimizer-releases" class="hover:text-fog-100 transition-colors">GitHub</a>
+          <a href="mailto:hello@getsentium.com" class="hover:text-fog-100 transition-colors">Contact</a>
+        </div>
+      </div>
     </footer>
 
     <script>
-        // Latest release URL — update this when a new release is published.
-        // Until the GitHub release is created, the button shows a friendly
-        // "coming soon" message instead of a 404.
-        const RELEASE_URL = "https://github.com/DonteWong/nuro-optimizer-releases/releases/latest/download/Nuro-Optimizer.zip";
-        document.getElementById('downloadCta').addEventListener('click', function (e) {
-            if (!RELEASE_URL) {
-                e.preventDefault();
-                alert("Download link goes live once the GitHub release is published. Check back soon.");
-            } else {
-                this.href = RELEASE_URL;
+      // Sticky nav: add backdrop blur after scrolling past hero top
+      (function () {
+        const nav = document.getElementById('topnav');
+        const onScroll = () => {
+          if (window.scrollY > 12) nav.classList.add('nav-blur');
+          else nav.classList.remove('nav-blur');
+        };
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
+
+      // Reveal-on-scroll for elements marked .reveal
+      (function () {
+        const els = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window)) {
+          els.forEach(el => el.classList.add('is-visible'));
+          return;
+        }
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
             }
-        });
+          });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+        els.forEach(el => io.observe(el));
+      })();
     </script>
 </body>
 </html>
