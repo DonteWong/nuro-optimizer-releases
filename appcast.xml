@@ -18,5 +18,18 @@
                 length="5704669"
                 type="application/octet-stream" />
         </item>
+        <item>
+            <title>Nuro Optimizer 1.0.8</title>
+            <pubDate>Wed, 06 May 2026 21:10:55 +0000</pubDate>
+            <sparkle:version>9</sparkle:version>
+            <sparkle:shortVersionString>1.0.8</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[See the release notes at https://github.com/DonteWong/nuro-optimizer-releases/releases/tag/v1.0.8]]></description>
+            <enclosure
+                url="https://github.com/DonteWong/nuro-optimizer-releases/releases/latest/download/Nuro-Optimizer.zip"
+                sparkle:edSignature="ZN2IPhKmmUKw/4MXYBOWgojTuM3QphsxMNWKeTBmWvt7CMmlg/ZHEeGlwF0XMnNPd6wbbKZLwKIARnN6GiJoDQ=="
+                length="5713661"
+                type="application/octet-stream" />
+        </item>
     </channel>
 </rss>
