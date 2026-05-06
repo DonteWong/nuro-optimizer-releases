@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Nuro Optimizer</title>
+        <link>https://optimizer.getsentium.com/appcast.xml</link>
+        <description>Most recent updates to Nuro Optimizer</description>
+        <language>en</language>
+    </channel>
+</rss>
