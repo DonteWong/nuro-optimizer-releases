@@ -5,5 +5,18 @@
         <link>https://optimizer.getsentium.com/appcast.xml</link>
         <description>Most recent updates to Nuro Optimizer</description>
         <language>en</language>
+        <item>
+            <title>Nuro Optimizer 1.0.7</title>
+            <pubDate>Wed, 06 May 2026 21:05:30 +0000</pubDate>
+            <sparkle:version>8</sparkle:version>
+            <sparkle:shortVersionString>1.0.7</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>13.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[<h2>What's new in 1.0.7</h2><ul><li>Sparkle auto-updates — the app will now check for new versions automatically</li><li>App Uninstaller — remove apps and every leftover support file in one move (everything goes to Trash, fully reversible)</li><li>Menu bar app — live CPU, memory, disk, and load right in your menu bar with quick actions for Purge Memory and Flush DNS</li><li>Time Machine snapshot reclamation — the Optimizer now reclaims hidden local snapshots that silently eat disk space</li></ul><p>See the full release notes at <a href="https://github.com/DonteWong/nuro-optimizer-releases/releases/tag/v1.0.7">github.com/DonteWong/nuro-optimizer-releases</a>.</p>]]></description>
+            <enclosure
+                url="https://github.com/DonteWong/nuro-optimizer-releases/releases/latest/download/Nuro-Optimizer.zip"
+                sparkle:edSignature="wzndx4zBZLj34Ew4wbBzRZCaJhvpUBtnDIe/cHKWOxaQBDbWWGfq241YBaOgw4keXavemy2ijXWC2JDUX8dUCA=="
+                length="5704669"
+                type="application/octet-stream" />
+        </item>
     </channel>
 </rss>
