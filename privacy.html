@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+
+    <title>Privacy — Nuro Optimizer</title>
+    <meta name="description" content="Nuro Optimizer privacy policy. No telemetry. No accounts. No data leaves your Mac.">
+
+    <link rel="icon" type="image/png" href="./icon.png">
+    <link rel="apple-touch-icon" href="./icon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              ink: { 950: '#000000', 900: '#06070a', 850: '#0a0c11', 800: '#10131a', 700: '#1a1e26', 600: '#2a2f3a' },
+              accent: { DEFAULT: '#0A84FF', soft: '#5DADFF' },
+              fog: { 100: '#f5f6f8', 400: '#a8adb8', 500: '#7c818d', 600: '#5e636e' }
+            },
+            maxWidth: { 'prose-tight': '38rem', 'page': '76rem' }
+          }
+        }
+      };
+    </script>
+
+    <style>
+      html, body { background: #000; }
+      body { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+      .hairline { border: 1px solid rgba(255,255,255,0.06); }
+      .hairline-strong { border: 1px solid rgba(255,255,255,0.10); }
+      ::selection { background: rgba(10,132,255,0.35); color: #fff; }
+      :focus-visible { outline: 2px solid #0A84FF; outline-offset: 3px; border-radius: 6px; }
+      .prose h2 { font-size: 1.25rem; font-weight: 600; color: #f5f6f8; margin-top: 2.5rem; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+      .prose h2:first-child { margin-top: 0; }
+      .prose p { color: #a8adb8; line-height: 1.7; margin-bottom: 1rem; }
+      .prose ul { list-style: disc; padding-left: 1.25rem; color: #a8adb8; line-height: 1.7; margin-bottom: 1rem; }
+      .prose ul li { margin-bottom: 0.4rem; }
+      .prose strong { color: #f5f6f8; font-weight: 600; }
+      .prose a { color: #5DADFF; }
+      .prose a:hover { color: #f5f6f8; }
+      .prose code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; background: rgba(255,255,255,0.06); padding: 0.1rem 0.4rem; border-radius: 4px; color: #f5f6f8; }
+    </style>
+</head>
+<body class="bg-ink-950 text-fog-100">
+
+    <!-- NAV -->
+    <header class="sticky top-0 z-40 hairline bg-black/65 backdrop-blur">
+      <nav class="max-w-page mx-auto flex items-center justify-between px-6 sm:px-8 py-4">
+        <a href="./" class="flex items-center gap-2.5 text-fog-100 font-medium tracking-tight">
+          <img src="./icon.png" alt="" class="size-7 rounded-md" />
+          <span>Nuro Optimizer</span>
+        </a>
+        <div class="flex items-center gap-7 text-fog-400">
+          <a href="./" class="hover:text-fog-100 transition-colors">Home</a>
+          <a href="./#download" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/15 text-fog-100 transition-colors hairline-strong">Download</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="max-w-prose-tight mx-auto px-6 sm:px-8 py-16 sm:py-24">
+      <div class="mb-10">
+        <p class="text-xs uppercase tracking-[0.18em] text-fog-500 mb-3">Privacy</p>
+        <h1 class="text-4xl font-semibold tracking-tight text-fog-100">Your Mac. Your data.</h1>
+        <p class="text-fog-400 mt-3">Last updated: 6 May 2026</p>
+      </div>
+
+      <div class="prose">
+        <h2>The short version</h2>
+        <p><strong>Nuro Optimizer does not collect, transmit, or store any of your data anywhere outside your Mac.</strong> There is no telemetry, no analytics SDK, no crash reporter, no version-check ping, and no account system. The app has never made a network request from your machine to any of our servers — there is no server.</p>
+
+        <h2>What the app reads on your Mac</h2>
+        <p>To diagnose performance issues, the app reads system information that macOS already exposes to user-space tools — the same data you can see in Activity Monitor, System Settings, or Disk Utility. Specifically:</p>
+        <ul>
+          <li>Hardware specs, OS version, uptime, load averages</li>
+          <li>Memory and swap statistics</li>
+          <li>Disk capacity, S.M.A.R.T. status, APFS metadata</li>
+          <li>Battery health (laptops) and thermal state</li>
+          <li>Top processes by memory and CPU usage (names + PIDs only)</li>
+          <li>Launch agents and daemons configured to run at startup</li>
+          <li>Cache directory sizes (file content is never read)</li>
+        </ul>
+        <p>This information stays on your machine. It is never uploaded anywhere.</p>
+
+        <h2>Full Disk Access</h2>
+        <p>macOS requires Full Disk Access for several of the analyzers above (notably scanning launch items in <code>/Library/LaunchDaemons</code> and reading SMC keys for thermal data). Full Disk Access lets the app <strong>read</strong> protected paths on your behalf — it does not give the app permission to send anything off-device. You can revoke it any time in <strong>System Settings → Privacy &amp; Security → Full Disk Access</strong>.</p>
+
+        <h2>Where data is stored locally</h2>
+        <p>The app keeps a few small files in your home directory under <code>~/.macoptimize/</code>:</p>
+        <ul>
+          <li><strong>Benchmark snapshots</strong> — JSON files capturing system state before and after optimization runs, so you can see what changed.</li>
+          <li><strong>Action log</strong> — a plain-text record of which caches were cleaned and which startup items were toggled, so changes can be undone.</li>
+        </ul>
+        <p>These files never leave your Mac. You can delete them at any time. <code>./reset-install.sh</code> in the source tree wipes everything the app has touched.</p>
+
+        <h2>Reversibility</h2>
+        <p>Cache cleaning moves files to the Trash rather than permanently deleting them, so anything we shouldn't have touched can be recovered. Startup item changes are recorded transactionally and can be reverted from within the app.</p>
+
+        <h2>The website</h2>
+        <p>This site (<code>optimizer.getsentium.com</code>) is a static page hosted on GitHub Pages. It does not set cookies or run analytics scripts. GitHub may collect basic server-side request logs as part of operating their hosting infrastructure — that is outside our control and outside the app itself.</p>
+
+        <h2>Distribution</h2>
+        <p>The app is signed with an Apple Developer ID and notarized by Apple before every release. Apple validates the binary; macOS staples the notarization ticket to the app bundle so Gatekeeper can verify it offline. We use no third-party update servers, license servers, or telemetry endpoints.</p>
+
+        <h2>Changes</h2>
+        <p>If this policy ever changes, the new version will appear here with an updated date. The "no telemetry, no accounts" promise is a core product principle and is not going to change.</p>
+
+        <h2>Contact</h2>
+        <p>Questions or concerns: <a href="mailto:hello@getsentium.com">hello@getsentium.com</a>.</p>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="hairline mt-16">
+      <div class="max-w-page mx-auto px-6 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+        <div class="flex items-center gap-3 text-fog-500">
+          <span>© 2026 Sentium Nuro Labs</span>
+          <span class="text-fog-600">·</span>
+          <span>Created by Donte Wong</span>
+        </div>
+        <div class="flex items-center gap-7 text-fog-500">
+          <a href="./" class="hover:text-fog-100 transition-colors">Home</a>
+          <a href="mailto:hello@getsentium.com" class="hover:text-fog-100 transition-colors">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+</body>
+</html>
