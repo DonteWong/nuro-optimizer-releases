@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+
+# Explicitly allow social media crawlers — Facebook's debugger has been
+# known to flag a robots.txt block reason whenever any non-200 response
+# slips through during deploys, even when nothing is actually disallowed.
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: facebookcatalog
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+Sitemap: https://optimizer.getsentium.com/sitemap.xml
